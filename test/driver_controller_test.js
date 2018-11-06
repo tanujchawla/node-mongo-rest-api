@@ -5,6 +5,15 @@ const app = require('../app');
 const Driver = mongoose.model('driver');
 
 describe('Drivers Controller', () => {
+    
+    // beforeEach( done => {
+    //     let d1;
+
+    //     d1 = new Driver({email : "test123@test.com" });
+    //     d1.save()
+    //         .then( () => done());
+    // });
+
     it('Post to /api/drivers to create a new driver', (done) => {
         Driver.count().then(count => {
             request(app)

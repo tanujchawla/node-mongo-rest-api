@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const routes = require('./routes/routes');
 const app = express();
+require('dotenv').config();
 
 mongoose.Promise = global.Promise;
 if(process.env.NODE_ENV !== 'test') {
