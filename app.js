@@ -7,10 +7,18 @@ require('dotenv').config();
 
 mongoose.Promise = global.Promise;
 if(process.env.NODE_ENV !== 'test') {
-    mongoose.connect('mongodb://localhost/muber');
+    mongoose.connect('mongodb://localhost/muber', {useNewUrlParser:true});
+    mongoose.connection.once('open', () => console.log('connected')).on('error', (error) => cosnole.log(error));
+} else if(process.env.NODE_ENV === 'test') {
+    mongoose.connect('mongodb://localhost/muber_test', {useNewUrlParser:true});
+    mongoose.connection.once('open', () => console.log('connected')).on('error', (error) => cosnole.log(error));
 }
 
 app.use(bodyParser.json());
 routes(app);
+
+app.use((err, req,res, next) => {
+    res.status(422).send({error : err._message});
+});
 
 module.exports = app;
